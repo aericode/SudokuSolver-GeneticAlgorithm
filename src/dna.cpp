@@ -18,3 +18,23 @@ Dna::Dna(){
 		}
 	}
 }
+
+Dna Dna::crossover(Dna partner){
+	srand (time(NULL));
+	Dna child;
+	int childGene[16];
+	for(int i=0; i < CELLCOUNT; i++){
+		if(tip[i]!=0){
+			childGene[i] = tip[i];
+		}else{
+			if(rand() % 2 == 0){
+				childGene[i] = gene[i];
+			}else{
+				childGene[i] = partner.gene[i];
+			}
+		}
+	}
+	child.gene = childGene;
+
+	return child;
+}

@@ -11,7 +11,6 @@ int gene[16];
 int fitness;
 
 Dna();
-Dna(int* tip);
 Dna crossover(Dna);
 
 };
