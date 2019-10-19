@@ -20,6 +20,7 @@ int gene[16];
 int fitness;
 
 Dna();
+Dna(int*);
 Dna crossover(Dna);
 
 void testFitness();
