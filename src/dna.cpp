@@ -2,6 +2,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
+#define SIZE 4
 #define MAXINPUT 4
 #define CELLCOUNT 16
 
@@ -22,19 +23,47 @@ Dna::Dna(){
 Dna Dna::crossover(Dna partner){
 	srand (time(NULL));
 	Dna child;
-	int childGene[16];
 	for(int i=0; i < CELLCOUNT; i++){
 		if(tip[i]!=0){
-			childGene[i] = tip[i];
+			child.gene[i] = tip[i];
 		}else{
 			if(rand() % 2 == 0){
-				childGene[i] = gene[i];
+				child.gene[i] = gene[i];
 			}else{
-				childGene[i] = partner.gene[i];
+				child.gene[i] = partner.gene[i];
 			}
 		}
 	}
-	child.gene = childGene;
 
 	return child;
+}
+
+bool Dna::cellBreaksRow(int index){
+	int floor = (index/SIZE)*SIZE;
+	int ceiling = floor + SIZE;
+
+	for(int i =floor;i<ceiling;i++){
+		if(gene[i]==gene[index]){
+			if(i!=index) return true;
+		}
+	}
+	return false;
+}
+
+bool Dna::cellBreaksCol(int index){
+	int rowIndex = index%SIZE;
+	int rowElements[SIZE];
+	int current;
+
+	for(int i = 0;i < SIZE; i++){
+		rowElements[i] = rowIndex + i*SIZE;
+	}
+
+	for(int i = 0;i < SIZE ;i++){
+		current = rowElements[i];
+		if( gene[ current ]==gene[index]){
+			if(current!=index)return true;
+		}
+	}
+	return false;
 }
