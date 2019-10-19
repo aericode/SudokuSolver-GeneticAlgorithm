@@ -10,12 +10,9 @@ bool cellBreaksRow(int);
 bool cellBreaksCol(int);
 bool cellBreaksBlock(int);
 
-int rowScore();
-int colScore();
-int blockScore();
-
 public:
-static int* tip;
+static int* tip; //dica dada pelo sudoku
+static float mutationFactor; //chance de mutação
 int gene[16];
 int fitness;
 
@@ -24,6 +21,7 @@ Dna(int*);
 Dna crossover(Dna);
 
 void testFitness();
+void mutate();
 
 };
 

@@ -1,4 +1,3 @@
-#include <iostream>
 #include "dna.h"
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
@@ -9,7 +8,8 @@
 #define MAXINPUT 4 //mesmo que size, mas pra contexto de numero
 #define CELLCOUNT 16 // size ao quadrado, nº de celulas
 
-int* Dna::tip = NULL;
+int*  Dna::tip = NULL;
+float Dna::mutationFactor = 0;
 
 Dna::Dna(){
 	for(int i=0; i < CELLCOUNT; i++){
@@ -122,5 +122,20 @@ void Dna::testFitness(){
 Dna::Dna(int *init){
 	for(int i = 0;i< CELLCOUNT; i++){
 		gene[i] = init[i];
+	}
+}
+
+void Dna::mutate(){
+	srand (time(NULL));
+	float randomMutate;
+	for(int i = 0; i < CELLCOUNT; i++){
+		if(tip[i]!=0){
+			gene[i] = tip[i];
+		}else{
+			randomMutate = (float)rand()/(float)RAND_MAX;
+			if(randomMutate < mutationFactor){
+				gene[i] = rand() % MAXINPUT + 1;
+			}
+		}
 	}
 }
