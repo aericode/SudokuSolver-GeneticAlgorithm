@@ -48,8 +48,6 @@ bool Dna::cellBreaksRow(int index){
 	for(int i =floor;i<ceiling;i++){
 		if(gene[i]==gene[index]){
 			if(i!=index){ 
-				cout<<"index: "<<index<<endl;
-				cout<<"breaks row"<<endl;
 				return true;
 			}
 		}
@@ -70,8 +68,6 @@ bool Dna::cellBreaksCol(int index){
 		current = rowElements[i];
 		if( gene[ current ]==gene[index]){
 			if(current!=index){ 
-				cout<<"index: "<<index<<endl;
-				cout<<"breaks col"<<endl;
 				return true;
 			}
 		}
@@ -102,8 +98,6 @@ bool Dna::cellBreaksBlock(int index){
 			current = startCellIndex + (SIZE*i + j); //avançar SIZE coloca você na coluna abaixo da sua
 			if( gene[ current ]==gene[index]){ //checa se é igual ao valor da celula
 				if(current!=index){ 
-					cout<<"index: "<<index<<endl;
-					cout<<"breaks block"<<endl;
 					return true;
 				}
 			}
