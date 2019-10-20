@@ -1,7 +1,9 @@
 #include "dna.h"
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include <iostream>
 
+using namespace std;
 
 #define LEVEL 2 //sqrt do size
 #define SIZE 4  //quantidade de linhas, colunas, etc
@@ -16,7 +18,7 @@ Dna::Dna(){
 		if(tip[i]!=0){
 			gene[i] = tip[i];
 		}else{
-			srand (time(NULL));
+			int randomTest = rand();
 			gene[i] = rand() % MAXINPUT + 1;
 
 		}
@@ -24,7 +26,6 @@ Dna::Dna(){
 }
 
 Dna Dna::crossover(Dna partner){
-	srand (time(NULL));
 	Dna child;
 	for(int i=0; i < CELLCOUNT; i++){
 		if(tip[i]!=0){
@@ -126,7 +127,6 @@ Dna::Dna(int *init){
 }
 
 void Dna::mutate(){
-	srand (time(NULL));
 	float randomMutate;
 	for(int i = 0; i < CELLCOUNT; i++){
 		if(tip[i]!=0){
@@ -138,4 +138,11 @@ void Dna::mutate(){
 			}
 		}
 	}
+}
+
+void Dna::sayGene(){
+	for(int i = 0;i < CELLCOUNT;i++){
+		cout<<gene[i];
+	}
+	cout<<endl;
 }

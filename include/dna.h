@@ -1,6 +1,7 @@
 #ifndef dna_h
 #define dna_h
 #include <vector>
+#include <time.h>
 
 using namespace std;
 
@@ -22,6 +23,7 @@ Dna crossover(Dna);
 
 void testFitness();
 void mutate();
+void sayGene();
 
 };
 
