@@ -36,7 +36,8 @@ int main(){
 
 	Population population;
 
-	population.initializePop(50);
+	population.initializePop(400);
+	population.calcFitness();
 
 	return 0;
 }
