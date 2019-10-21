@@ -28,10 +28,11 @@ void Population::calcFitness(){
 		popArray[i]->testFitness();
 	}
 
-
+	/*
 	for(int i=0;i<popArray.size();i++){
 		cout<<popArray[i]->fitness<<endl;
 	}
+	*/
 }
 
 void Population::addToPartners(int index){
