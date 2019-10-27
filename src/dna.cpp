@@ -25,22 +25,24 @@ Dna::Dna(){
 	}
 }
 
-Dna* Dna::crossover(Dna* partner){
+/*Dna* Dna::crossover(Dna* partner){
 	Dna* child = new Dna;
 	for(int i=0; i < CELLCOUNT; i++){
 		if(tip[i]!=0){
 			child->gene[i] = tip[i];
 		}else{
 			if(rand() % 2 == 0){
-				child->gene[i] = gene[i];
+				child->gene[i] = this->gene[i];
+				//child->gene[i] = 1;
 			}else{
-				child->gene[i] = partner->gene[i];
+				//child->gene[i] = partner->gene[i];
+				child->gene[i] = 2;
 			}
 		}
 	}
 
 	return child;
-}
+}*/
 
 bool Dna::cellBreaksRow(int index){
 	int floor = (index/SIZE)*SIZE;
@@ -145,4 +147,8 @@ void Dna::sayGene(){
 		cout<<gene[i];
 	}
 	cout<<endl;
+}
+
+int Dna::getGene(int place){
+	return gene[place];
 }

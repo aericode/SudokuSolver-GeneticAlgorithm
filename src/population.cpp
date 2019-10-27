@@ -43,7 +43,7 @@ void Population::addToPartners(int index){
 	int poolCount = (MAXADD*score)/PERFECTSCORE; //regra de três para decidir quantos vão para a pool
 
 	for(int i=0;i<poolCount;i++){
-		partners.push_back(i);
+		partners.push_back(index);
 	}
 
 }
@@ -77,15 +77,15 @@ void Population::makeGeneration(){
 		indexA = partners[rand()%partners.size()];
 		indexB = partners[rand()%partners.size()];
 
-		partnerA = popArray[indexA];
-		partnerB = popArray[indexB];
+		//partnerA = popArray[indexA];
+		//partnerB = popArray[indexB];
 
-		child = partnerA->crossover(partnerB);
+		child = crossover(indexA, indexB);
 
 		nextGen.push_back(child);
 	}
 
-	clearGeneration();
+	//clearGeneration();
 
 	popArray = nextGen;
 }
@@ -93,8 +93,27 @@ void Population::makeGeneration(){
 
 void Population::printGeneration(){
 	for(int i=0;i<popArray.size();i++){
-		cout<<"ind: "<<i<<endl;
+		cout<<"index: "<<i<<endl;
 		popArray[i]->sayGene();
 		cout<<"fitness :"<<popArray[i]->fitness<<endl<<endl;
 	}
+}
+
+Dna* Population::crossover(int indexA, int indexB){
+	cout<<"index A = "<<indexA<<endl;
+	cout<<"index B = "<<indexB<<endl;
+	Dna* child = new Dna;
+	for(int i=0; i < CELLCOUNT; i++){
+		if(Dna::tip[i]!=0){
+			child->gene[i] = Dna::tip[i];
+		}else{
+			if(rand() % 2 == 0){
+				child->gene[i] = popArray.at(indexA)->getGene(i);
+			}else{
+				child->gene[i] = popArray.at(indexB)->getGene(i);
+			}
+		}
+	}
+
+	return child;
 }

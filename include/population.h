@@ -29,6 +29,8 @@ public:
 
 	int  findFitest();
 	int  poolCountGenerator(int);
+
+	Dna* crossover(int,int);
 	
 
 	Population();

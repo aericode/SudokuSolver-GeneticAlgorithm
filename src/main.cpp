@@ -39,7 +39,14 @@ int main(){
 	population.initializePop();
 	population.calcFitness();
 
+	population.printGeneration();
+
 	population.repopulatePartners();
+
+	population.makeGeneration();
+	population.calcFitness();
+	
+	population.printGeneration();
 
 	return 0;
 }
