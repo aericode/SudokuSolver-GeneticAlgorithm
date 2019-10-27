@@ -77,15 +77,12 @@ void Population::makeGeneration(){
 		indexA = partners[rand()%partners.size()];
 		indexB = partners[rand()%partners.size()];
 
-		//partnerA = popArray[indexA];
-		//partnerB = popArray[indexB];
-
 		child = crossover(indexA, indexB);
 
 		nextGen.push_back(child);
 	}
 
-	//clearGeneration();
+	clearGeneration();
 
 	popArray = nextGen;
 }
