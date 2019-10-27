@@ -13,6 +13,7 @@ using namespace std;
 
 Population::Population(){
 	popSize = DEFAULTPOP;
+	finished = false;
 }
 
 void Population::initializePop(){
@@ -29,6 +30,12 @@ void Population::initializePop(){
 void Population::calcFitness(){
 	for(int i=0;i<popArray.size();i++){
 		popArray[i]->testFitness();
+		if(popArray[i]->fitness == PERFECTSCORE){
+			finished = true;
+			cout<<"RESPOSTAAAAAAAAAAAA: ";
+			popArray[i]->sayGene();
+			cout<<endl;
+		}
 	}
 
 	/*
@@ -97,8 +104,6 @@ void Population::printGeneration(){
 }
 
 Dna* Population::crossover(int indexA, int indexB){
-	cout<<"index A = "<<indexA<<endl;
-	cout<<"index B = "<<indexB<<endl;
 	Dna* child = new Dna;
 	for(int i=0; i < CELLCOUNT; i++){
 		if(Dna::tip[i]!=0){
@@ -113,4 +118,11 @@ Dna* Population::crossover(int indexA, int indexB){
 	}
 
 	return child;
+}
+
+
+void Population::mutateGeneration(){
+	for(int i=0;i<popSize;i++){
+		popArray[i]->mutate();
+	}
 }

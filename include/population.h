@@ -26,6 +26,7 @@ public:
 	void clearGeneration();
 	void makeGeneration();
 	void printGeneration();
+	void mutateGeneration();
 
 	int  findFitest();
 	int  poolCountGenerator(int);

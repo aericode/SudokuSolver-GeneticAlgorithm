@@ -37,16 +37,17 @@ int main(){
 	Population population;
 
 	population.initializePop();
-	population.calcFitness();
-
-	population.printGeneration();
-
-	population.repopulatePartners();
-
-	population.makeGeneration();
-	population.calcFitness();
 	
-	population.printGeneration();
+	while(!population.finished){
+		population.calcFitness();
+		population.repopulatePartners();
+
+		population.makeGeneration();
+		population.mutateGeneration();
+		population.calcFitness();
+
+		population.printGeneration();
+	}	
 
 	return 0;
 }
