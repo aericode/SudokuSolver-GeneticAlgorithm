@@ -6,13 +6,16 @@
 
 #define PERFECTSCORE 48
 #define MAXADD 100
+#define DEFAULTPOP 50
 
 using namespace std;
 
 
-Population::Population(){}
+Population::Population(){
+	popSize = DEFAULTPOP;
+}
 
-void Population::initializePop(int popSize){
+void Population::initializePop(){
 	for(int i=0;i<popSize;i++){
 		popArray.push_back(new Dna());
 	}
@@ -50,5 +53,48 @@ void Population::repopulatePartners(){
 
 	for(int i=0;i<popArray.size();i++){
 		addToPartners(i);
+	}
+}
+
+void Population::clearGeneration(){
+	for(int i=0;i<popSize;i++){
+		delete popArray[i];
+	}
+}
+
+
+void Population::makeGeneration(){
+	vector<Dna*> nextGen;
+
+	int indexA; 
+	int indexB;
+
+	Dna* partnerA;
+	Dna* partnerB;
+
+	Dna* child;
+	for(int i = 0; i < popSize ; i++){
+		indexA = partners[rand()%partners.size()];
+		indexB = partners[rand()%partners.size()];
+
+		partnerA = popArray[indexA];
+		partnerB = popArray[indexB];
+
+		child = partnerA->crossover(partnerB);
+
+		nextGen.push_back(child);
+	}
+
+	clearGeneration();
+
+	popArray = nextGen;
+}
+
+
+void Population::printGeneration(){
+	for(int i=0;i<popArray.size();i++){
+		cout<<"ind: "<<i<<endl;
+		popArray[i]->sayGene();
+		cout<<"fitness :"<<popArray[i]->fitness<<endl<<endl;
 	}
 }

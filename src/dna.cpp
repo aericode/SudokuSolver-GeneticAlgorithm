@@ -25,16 +25,16 @@ Dna::Dna(){
 	}
 }
 
-Dna Dna::crossover(Dna partner){
-	Dna child;
+Dna* Dna::crossover(Dna* partner){
+	Dna* child = new Dna;
 	for(int i=0; i < CELLCOUNT; i++){
 		if(tip[i]!=0){
-			child.gene[i] = tip[i];
+			child->gene[i] = tip[i];
 		}else{
 			if(rand() % 2 == 0){
-				child.gene[i] = gene[i];
+				child->gene[i] = gene[i];
 			}else{
-				child.gene[i] = partner.gene[i];
+				child->gene[i] = partner->gene[i];
 			}
 		}
 	}

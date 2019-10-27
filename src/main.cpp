@@ -36,7 +36,7 @@ int main(){
 
 	Population population;
 
-	population.initializePop(50);
+	population.initializePop();
 	population.calcFitness();
 
 	population.repopulatePartners();

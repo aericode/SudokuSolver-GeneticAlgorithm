@@ -19,7 +19,7 @@ int fitness;
 
 Dna();
 Dna(int*);
-Dna crossover(Dna);
+Dna* crossover(Dna*);
 
 void testFitness();
 void mutate();

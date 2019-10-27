@@ -16,18 +16,23 @@ public:
 	int generations;
 	bool finished;
 	int perfectScore = CELLCOUNT*3;
+	int popSize;
 
-	void initializePop(int);
+	void initializePop();
 	void calcFitness();
 	//void generatePartners();
 	void addToPartners(int);
 	void repopulatePartners();
-
+	void clearGeneration();
 	void makeGeneration();
+	void printGeneration();
+
 	int  findFitest();
 	int  poolCountGenerator(int);
+	
 
 	Population();
+
 
 };
 
