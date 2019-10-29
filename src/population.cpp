@@ -5,8 +5,8 @@
 #include <vector>
 
 #define PERFECTSCORE 48
-#define MAXADD 100
-#define DEFAULTPOP 50
+#define MAXADD 100 //qual o maximo de copias a adicionar na breeding pool
+#define DEFAULTPOP 50 //população padrão
 
 using namespace std;
 

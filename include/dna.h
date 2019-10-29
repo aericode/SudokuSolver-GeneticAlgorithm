@@ -14,6 +14,13 @@ bool cellBreaksBlock(int);
 public:
 static int* tip; //dica dada pelo sudoku
 static float mutationFactor; //chance de mutação
+
+static int level;
+static int size;
+static int maxinput;
+static int cellcount;
+
+
 int gene[16];
 int fitness;
 
