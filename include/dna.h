@@ -17,8 +17,8 @@ static float mutationFactor; //chance de mutação
 
 static int level;
 static int size;
-static int maxinput;
-static int cellcount;
+static int maxInput;
+static int cellCount;
 
 
 int gene[16];
@@ -27,6 +27,7 @@ int fitness;
 Dna();
 Dna(int*);
 //Dna* crossover(Dna*);
+
 
 void testFitness();
 void mutate();

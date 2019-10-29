@@ -3,6 +3,8 @@
 #include <time.h>  
 #include <iostream>
 #include <vector>
+#include "dna.h"
+
 
 #define PERFECTSCORE 48
 #define MAXADD 100 //qual o maximo de copias a adicionar na breeding pool
@@ -10,11 +12,25 @@
 
 using namespace std;
 
+Population::Population(){}
 
-Population::Population(){
-	popSize = DEFAULTPOP;
+Population::Population(int level_, float mutationFaction_, string tip_, int popSize_){
+	popSize = popSize_;
 	finished = false;
+
+	Dna::level     = level_;
+	Dna::size      = level_*level_;
+	Dna::maxInput  = level_*level_;
+	Dna::cellCount = (Dna::size)*(Dna::size);
+
+	updateTip(tip_);
+
+	for(int i = 0; i<Dna::cellCount; i++){
+		cout<<Dna::tip[i]<<' ';
+	}
+	cout<<endl;
 }
+
 
 void Population::initializePop(){
 	for(int i=0;i<popSize;i++){
@@ -125,4 +141,13 @@ void Population::mutateGeneration(){
 	for(int i=0;i<popSize;i++){
 		popArray[i]->mutate();
 	}
+}
+
+void Population::updateTip(string tip_){
+	if(Dna::tip)delete Dna::tip;
+	Dna::tip = new int[Dna::cellCount];
+
+	for (int i = 0; i<Dna::cellCount; i++) { 
+    	Dna::tip[i] = tip_[i] - 48;
+    }
 }

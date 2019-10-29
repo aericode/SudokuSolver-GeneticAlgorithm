@@ -4,6 +4,7 @@
 #define CELLCOUNT 16
 
 #include "dna.h"
+#include <string>
 
 
 using namespace std;
@@ -32,9 +33,12 @@ public:
 	int  poolCountGenerator(int);
 
 	Dna* crossover(int,int);
+
+	void updateTip(string);
 	
 
 	Population();
+	Population(int,float,string,int);
 
 
 };

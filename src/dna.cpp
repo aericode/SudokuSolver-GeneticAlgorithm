@@ -5,21 +5,25 @@
 
 using namespace std;
 
-#define LEVEL 2 //sqrt do size
-#define SIZE 4  //quantidade de linhas, colunas, etc
-#define MAXINPUT 4 //mesmo que size, mas pra contexto de numero
-#define CELLCOUNT 16 // size ao quadrado, nº de celulas
+//#define level 2 //sqrt do size
+//#define size 4  //quantidade de linhas, colunas, etc
+//#define maxInput 4 //mesmo que size, mas pra contexto de numero
+//#define cellCount 16 // size ao quadrado, nº de celulas
 
 int*  Dna::tip = NULL;
 float Dna::mutationFactor = 0;
+int   Dna::level = 0;
+int   Dna::size = 0;
+int   Dna::maxInput = 0;
+int   Dna::cellCount = 0;
 
 Dna::Dna(){
-	for(int i=0; i < CELLCOUNT; i++){
+	for(int i=0; i < cellCount; i++){
 		if(tip[i]!=0){
 			gene[i] = tip[i];
 		}else{
 			int randomTest = rand();
-			gene[i] = rand() % MAXINPUT + 1;
+			gene[i] = rand() % maxInput + 1;
 
 		}
 	}
@@ -27,7 +31,7 @@ Dna::Dna(){
 
 /*Dna* Dna::crossover(Dna* partner){
 	Dna* child = new Dna;
-	for(int i=0; i < CELLCOUNT; i++){
+	for(int i=0; i < cellCount; i++){
 		if(tip[i]!=0){
 			child->gene[i] = tip[i];
 		}else{
@@ -45,8 +49,8 @@ Dna::Dna(){
 }*/
 
 bool Dna::cellBreaksRow(int index){
-	int floor = (index/SIZE)*SIZE;
-	int ceiling = floor + SIZE;
+	int floor = (index/size)*size;
+	int ceiling = floor + size;
 
 	for(int i =floor;i<ceiling;i++){
 		if(gene[i]==gene[index]){
@@ -59,15 +63,15 @@ bool Dna::cellBreaksRow(int index){
 }
 
 bool Dna::cellBreaksCol(int index){
-	int rowIndex = index%SIZE;
-	int rowElements[SIZE];
+	int rowIndex = index%size;
+	int rowElements[size];
 	int current;
 
-	for(int i = 0;i < SIZE; i++){
-		rowElements[i] = rowIndex + i*SIZE;
+	for(int i = 0;i < size; i++){
+		rowElements[i] = rowIndex + i*size;
 	}
 
-	for(int i = 0;i < SIZE ;i++){
+	for(int i = 0;i < size ;i++){
 		current = rowElements[i];
 		if( gene[ current ]==gene[index]){
 			if(current!=index){ 
@@ -81,24 +85,24 @@ bool Dna::cellBreaksCol(int index){
 
 
 bool Dna::cellBreaksBlock(int index){
-	int rowIndex   = (index/SIZE)*SIZE; //a linha a que pertence
-	int colIndex   =  index%SIZE;       //a coluna a que pertence
-	int blockIndex = ((rowIndex/LEVEL)*LEVEL + colIndex/LEVEL); //o bloco a que pertence
+	int rowIndex   = (index/size)*size; //a linha a que pertence
+	int colIndex   =  index%size;       //a coluna a que pertence
+	int blockIndex = ((rowIndex/level)*level + colIndex/level); //o bloco a que pertence
 	int current; //o indice do elemento sendo avalado dentro do laço
 
 	//auxilio para calcular a celula onde iniciar a busca
-	int blockCol = blockIndex%LEVEL;
-	int blockRow = blockIndex/LEVEL;
+	int blockCol = blockIndex%level;
+	int blockRow = blockIndex/level;
 
 	//diz o número de linhas para pular a cada linha de bloco
 	//é a célula que inicia o bloco
-	int startCellIndex = blockRow*LEVEL*SIZE + blockCol*LEVEL;
+	int startCellIndex = blockRow*level*size + blockCol*level;
 
 	int i;//linha de bloco
 	int j;//coluna de bloco
-	for(i = 0;i < LEVEL; i ++){//cada "i" que aumenta vai pular SIZE blocos
-		for(j = 0; j < LEVEL;j++){
-			current = startCellIndex + (SIZE*i + j); //avançar SIZE coloca você na coluna abaixo da sua
+	for(i = 0;i < level; i ++){//cada "i" que aumenta vai pular size blocos
+		for(j = 0; j < level;j++){
+			current = startCellIndex + (size*i + j); //avançar size coloca você na coluna abaixo da sua
 			if( gene[ current ]==gene[index]){ //checa se é igual ao valor da celula
 				if(current!=index){ 
 					return true;
@@ -114,7 +118,7 @@ bool Dna::cellBreaksBlock(int index){
 
 void Dna::testFitness(){
 	int score = 0;
-	for(int i = 0;i < CELLCOUNT;i++){
+	for(int i = 0;i < cellCount;i++){
 		if(!cellBreaksRow(i))   score++;
 		if(!cellBreaksCol(i))   score++;
 		if(!cellBreaksBlock(i)) score++;
@@ -123,27 +127,27 @@ void Dna::testFitness(){
 }
 
 Dna::Dna(int *init){
-	for(int i = 0;i< CELLCOUNT; i++){
+	for(int i = 0;i< cellCount; i++){
 		gene[i] = init[i];
 	}
 }
 
 void Dna::mutate(){
 	float randomMutate;
-	for(int i = 0; i < CELLCOUNT; i++){
+	for(int i = 0; i < cellCount; i++){
 		if(tip[i]!=0){
 			gene[i] = tip[i];
 		}else{
 			randomMutate = (float)rand()/(float)RAND_MAX;
 			if(randomMutate < mutationFactor){
-				gene[i] = rand() % MAXINPUT + 1;
+				gene[i] = rand() % maxInput + 1;
 			}
 		}
 	}
 }
 
 void Dna::sayGene(){
-	for(int i = 0;i < CELLCOUNT;i++){
+	for(int i = 0;i < cellCount;i++){
 		cout<<gene[i];
 	}
 	cout<<endl;
