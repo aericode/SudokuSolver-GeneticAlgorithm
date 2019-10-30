@@ -21,10 +21,11 @@ static int maxInput;
 static int cellCount;
 
 
-int gene[16];
-int fitness;
+int* gene;
+int  fitness;
 
 Dna();
+~Dna();
 Dna(int*);
 //Dna* crossover(Dna*);
 

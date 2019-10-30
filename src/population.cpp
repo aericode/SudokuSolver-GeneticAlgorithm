@@ -15,6 +15,7 @@ using namespace std;
 Population::Population(){}
 
 Population::Population(int level_, float mutationFaction_, string tip_, int popSize_){
+	generations = 0;
 	popSize = popSize_;
 	finished = false;
 
@@ -23,12 +24,9 @@ Population::Population(int level_, float mutationFaction_, string tip_, int popS
 	Dna::maxInput  = level_*level_;
 	Dna::cellCount = (Dna::size)*(Dna::size);
 
-	updateTip(tip_);
+	perfectScore = Dna::cellCount*3;
 
-	for(int i = 0; i<Dna::cellCount; i++){
-		cout<<Dna::tip[i]<<' ';
-	}
-	cout<<endl;
+	updateTip(tip_);
 }
 
 
@@ -36,19 +34,14 @@ void Population::initializePop(){
 	for(int i=0;i<popSize;i++){
 		popArray.push_back(new Dna());
 	}
-	/*
-	for(int i=0;i<popSize;i++){
-		popArray[i]->sayGene();
-	}
-	*/
 }
 
 void Population::calcFitness(){
 	for(int i=0;i<popArray.size();i++){
 		popArray[i]->testFitness();
-		if(popArray[i]->fitness == PERFECTSCORE){
+		if(popArray[i]->fitness == perfectScore){
 			finished = true;
-			cout<<"RESPOSTAAAAAAAAAAAA: ";
+			cout<<"RESPOSTA: ";
 			popArray[i]->sayGene();
 			cout<<endl;
 		}
@@ -63,7 +56,7 @@ void Population::calcFitness(){
 
 void Population::addToPartners(int index){
 	int score = popArray.at(index)->fitness;
-	int poolCount = (MAXADD*score)/PERFECTSCORE; //regra de três para decidir quantos vão para a pool
+	int poolCount = (MAXADD*score)/perfectScore; //regra de três para decidir quantos vão para a pool
 
 	for(int i=0;i<poolCount;i++){
 		partners.push_back(index);
@@ -108,6 +101,7 @@ void Population::makeGeneration(){
 	clearGeneration();
 
 	popArray = nextGen;
+	generations++;
 }
 
 
@@ -121,7 +115,7 @@ void Population::printGeneration(){
 
 Dna* Population::crossover(int indexA, int indexB){
 	Dna* child = new Dna;
-	for(int i=0; i < CELLCOUNT; i++){
+	for(int i=0; i < Dna::cellCount; i++){
 		if(Dna::tip[i]!=0){
 			child->gene[i] = Dna::tip[i];
 		}else{

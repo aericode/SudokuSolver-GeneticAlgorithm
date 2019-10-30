@@ -10,39 +10,8 @@ using namespace std;
 int main(){
 	srand(time(NULL));
 
-
-	//Dna::tip = new int[16];
-	//Dna::mutationFactor = 0.2;
-	//int test[16] = {2,1,0,0,0,3,2,0,0,0,0,4,1,0,0,0};
-	//Dna::tip = test;
-
-	//int answer[16] = {2,1,4,3,4,3,2,1,3,2,1,4,1,4,3,2};
-	
-
-
-
-	/*
-	Dna ind;
-	ind.testFitness();
-
-	for(int i=0;i<16;i++){
-		cout<<ind.gene[i]<<' ';
-	}
-	cout<<endl<<ind.fitness<<endl;
-
-	ind.mutate();
-	ind.testFitness();
-	for(int i=0;i<16;i++){
-		cout<<ind.gene[i]<<' ';
-	}
-	cout<<endl<<ind.fitness<<endl;
-	*/
-
-	Population population(2,0.3,"2100032000041000",50);
-	//Dna::tip = new int[16];
-	//int test[16] = {2,1,0,0,0,3,2,0,0,0,0,4,1,0,0,0};
-	//Dna::tip = test;
-
+	//Population population(2,0.3,"2100032000041000",100);
+	Population population(3,0.3,"600120384008459072000006005000264030070080006940003000310000050089700000502000190",100);
 
 	population.initializePop();
 
@@ -54,7 +23,10 @@ int main(){
 		population.mutateGeneration();
 		population.calcFitness();
 
-		population.printGeneration();
+		if(population.generations%10 == 0){
+			cout<<population.generations<<endl;
+			population.printGeneration();
+		}
 	}
 
 	return 0;

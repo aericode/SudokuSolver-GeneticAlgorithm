@@ -1,8 +1,6 @@
 #ifndef POPULATION_H
 #define POPULATION_H
 
-#define CELLCOUNT 16
-
 #include "dna.h"
 #include <string>
 
@@ -16,7 +14,7 @@ public:
 	vector<int>  partners;
 	int generations;
 	bool finished;
-	int perfectScore = CELLCOUNT*3;
+	int perfectScore;
 	int popSize;
 
 	void initializePop();

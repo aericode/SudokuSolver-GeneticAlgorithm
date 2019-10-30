@@ -18,6 +18,8 @@ int   Dna::maxInput = 0;
 int   Dna::cellCount = 0;
 
 Dna::Dna(){
+	gene = new int[cellCount];
+
 	for(int i=0; i < cellCount; i++){
 		if(tip[i]!=0){
 			gene[i] = tip[i];
@@ -27,6 +29,10 @@ Dna::Dna(){
 
 		}
 	}
+}
+
+Dna::~Dna(){
+	delete[] gene;
 }
 
 /*Dna* Dna::crossover(Dna* partner){
