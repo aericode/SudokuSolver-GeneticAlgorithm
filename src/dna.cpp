@@ -54,21 +54,20 @@ Dna::~Dna(){
 	return child;
 }*/
 
-bool Dna::cellBreaksRow(int index){
+void Dna::cellBreaksRow(int index){
 	int floor = (index/size)*size;
 	int ceiling = floor + size;
 
 	for(int i =floor;i<ceiling;i++){
 		if(gene[i]==gene[index]){
 			if(i!=index){ 
-				return true;
+				fitness++;
 			}
 		}
 	}
-	return false;
 }
 
-bool Dna::cellBreaksCol(int index){
+void Dna::cellBreaksCol(int index){
 	int rowIndex = index%size;
 	int rowElements[size];
 	int current;
@@ -81,16 +80,15 @@ bool Dna::cellBreaksCol(int index){
 		current = rowElements[i];
 		if( gene[ current ]==gene[index]){
 			if(current!=index){ 
-				return true;
+				fitness++;
 			}
 		}
 	}
-	return false;
 }
 
 
 
-bool Dna::cellBreaksBlock(int index){
+void Dna::cellBreaksBlock(int index){
 	int rowIndex   = (index/size)*size; //a linha a que pertence
 	int colIndex   =  index%size;       //a coluna a que pertence
 	int blockIndex = ((rowIndex/level)*level + colIndex/level); //o bloco a que pertence
@@ -111,25 +109,21 @@ bool Dna::cellBreaksBlock(int index){
 			current = startCellIndex + (size*i + j); //avançar size coloca você na coluna abaixo da sua
 			if( gene[ current ]==gene[index]){ //checa se é igual ao valor da celula
 				if(current!=index){ 
-					return true;
+					fitness++;
 				}
 			}
 		}
 		j=0;//volta pra colina zero
 	}
-
-	
-	return false;
 }
 
 void Dna::testFitness(){
-	int score = 0;
+	fitness = 0;
 	for(int i = 0;i < cellCount;i++){
-		if(!cellBreaksRow(i))   score++;
-		if(!cellBreaksCol(i))   score++;
-		if(!cellBreaksBlock(i)) score++;
+		cellBreaksRow(i);
+		cellBreaksCol(i);
+		cellBreaksBlock(i);
 	}
-	fitness = score;
 }
 
 Dna::Dna(int *init){
@@ -140,13 +134,20 @@ Dna::Dna(int *init){
 
 void Dna::mutate(){
 	float randomMutate;
+	int origVal;
+	int newVal;
 	for(int i = 0; i < cellCount; i++){
 		if(tip[i]!=0){
 			gene[i] = tip[i];
 		}else{
 			randomMutate = (float)rand()/(float)RAND_MAX;
 			if(randomMutate < mutationFactor){
-				gene[i] = rand() % maxInput + 1;
+				gene[i] = origVal;
+				do{
+					newVal = rand() % maxInput + 1;
+				}while(origVal == newVal);
+
+				gene[i] = newVal;
 			}
 		}
 	}

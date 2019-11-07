@@ -14,7 +14,7 @@ public:
 	vector<int>  partners;
 	int generations;
 	bool finished;
-	int perfectScore;
+	int worstScore; //pior score (quanto mais alto pior)
 	int popSize;
 
 	void initializePop();

@@ -7,9 +7,9 @@ using namespace std;
 
 class Dna{
 private:
-bool cellBreaksRow(int);
-bool cellBreaksCol(int);
-bool cellBreaksBlock(int);
+void cellBreaksRow(int);
+void cellBreaksCol(int);
+void cellBreaksBlock(int);
 
 public:
 static int* tip; //dica dada pelo sudoku

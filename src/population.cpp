@@ -6,7 +6,7 @@
 #include "dna.h"
 
 
-#define PERFECTSCORE 48
+//#define PERFECTSCORE 48
 #define MAXADD 100 //qual o maximo de copias a adicionar na breeding pool
 #define DEFAULTPOP 50 //população padrão
 
@@ -24,7 +24,10 @@ Population::Population(int level_, float mutationFaction_, string tip_, int popS
 	Dna::maxInput  = level_*level_;
 	Dna::cellCount = (Dna::size)*(Dna::size);
 
-	perfectScore = Dna::cellCount*3;
+
+	int comparations = (Dna::cellCount - 1)*3;
+	worstScore = Dna::cellCount*comparations; //pior score possivel
+																	 //quanto mais alto pior
 
 	updateTip(tip_);
 }
@@ -39,7 +42,7 @@ void Population::initializePop(){
 void Population::calcFitness(){
 	for(int i=0;i<popArray.size();i++){
 		popArray[i]->testFitness();
-		if(popArray[i]->fitness == perfectScore){
+		if(popArray[i]->fitness == 0){
 			finished = true;
 			cout<<"RESPOSTA: ";
 			popArray[i]->sayGene();
@@ -56,7 +59,8 @@ void Population::calcFitness(){
 
 void Population::addToPartners(int index){
 	int score = popArray.at(index)->fitness;
-	int poolCount = (MAXADD*score)/perfectScore; //regra de três para decidir quantos vão para a pool
+	int reversal = worstScore - score;//torna 0 o min para facilitar a regra de 3
+	int poolCount = (MAXADD*reversal)/worstScore; //regra de três para decidir quantos vão para a pool
 
 	for(int i=0;i<poolCount;i++){
 		partners.push_back(index);
