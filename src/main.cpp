@@ -37,15 +37,25 @@ int main(){
 	cout<<"(0.3 foi o usado nos testes)"<<endl;
 	cin>>mut;
 
+	int pop;
+
+	cout<<"escolha o número de individuos"<<endl;
+	cout<<"(100 foi o usado nos testes)"<<endl;
+	cin>>pop;
+
+	int limit;
+
+	cout<<"escolha um numero maximo de gerações para buscar"<<endl;
+	cin>>limit;
 
 
 	srand(time(NULL));
 
-	Population population(2,mut,tip,100);
+	Population population(2,mut,tip,pop);
 
 	population.initializePop();
 
-	while(!population.finished){
+	while(!population.finished&&population.generations<limit){
 		population.calcFitness();
 		population.repopulatePartners();
 
